@@ -56,7 +56,7 @@ namespace TDSTecnologia.Site.Web.Controllers
                 return NotFound();
             }
 
-            var curso = await _context.CursoDao.FirstOrDefaultAsync(m => m.Id == id);
+            var curso = await _cursoRespository.PegarPrimeiroOuDefault(id);
             if (curso == null)
             {
                 return NotFound();
@@ -72,7 +72,7 @@ namespace TDSTecnologia.Site.Web.Controllers
                 return NotFound();
             }
 
-            var curso = await _context.CursoDao.FindAsync(id);
+            var curso = await _cursoRespository.Pegar(id);
 
             if (curso == null)
             {
@@ -105,8 +105,7 @@ namespace TDSTecnologia.Site.Web.Controllers
                 return NotFound();
             }
 
-            var curso = await _context.CursoDao
-                .FirstOrDefaultAsync(m => m.Id == id);
+            var curso = await _cursoRespository.PegarPrimeiroOuDefault(id);
             if (curso == null)
             {
                 return NotFound();

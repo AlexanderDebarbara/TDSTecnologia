@@ -22,6 +22,16 @@ namespace TDSTecnologia.Site.Infrastructure.Repository
             return cursos;
         }
 
+        public async Task<Curso> Pegar(int? id)
+        {            
+            return await _context.CursoDao.FindAsync(id);
+        }
+
+        public async Task<Curso> PegarPrimeiroOuDefault(int? id)
+        {
+            return await _context.CursoDao.FirstOrDefaultAsync(m => m.Id == id);
+        }
+
         public async Task Salvar(Curso curso, IFormFile arquivo)
         {
             curso.Banner = await UtilImagem.ConverterParaByte(arquivo);
