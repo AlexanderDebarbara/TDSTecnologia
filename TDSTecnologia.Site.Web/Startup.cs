@@ -9,6 +9,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using TDSTecnologia.Site.Infrastructure.Data;
+using TDSTecnologia.Site.Infrastructure.Repository;
 
 namespace TDSTecnologia.Site.Web
 {
@@ -27,6 +28,7 @@ namespace TDSTecnologia.Site.Web
             services.AddMvc();
             services.AddEntityFrameworkNpgsql()
                     .AddDbContext<AppContexto>(options => options.UseNpgsql(Configuration.GetConnectionString("AppConnection")));
+            services.AddScoped<CursoRespository, CursoRespository>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

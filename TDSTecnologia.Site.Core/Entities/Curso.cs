@@ -4,6 +4,7 @@ using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Text;
 using TDSTecnologia.Site.Core.Dominio;
+using TDSTecnologia.Site.Core.Utilitarios;
 
 namespace TDSTecnologia.Site.Core.Entities
 {
@@ -30,7 +31,7 @@ namespace TDSTecnologia.Site.Core.Entities
         public byte[] Banner { get; set; }
 
         [NotMapped]
-        public string BannerBase64 { get; set; }
+        public string BannerBase64 { get { return UtilImagem.ConverterByteArrayParaStringBase64(Banner); }}
 
         [Column("turno")]
         public DomTurno Turno { get; set; }

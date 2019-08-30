@@ -1,5 +1,5 @@
 ﻿@model TDSTecnologia.Site.Core.Entities.Curso
-<div class="col-4" style="margin-top:10px;">
+<div class="col-md-6 col-lg-4" style="margin-top:10px;">
     <div class="card">
         <img class="card-img-top" alt="Card image cap" src="@Model.BannerBase64" />
         <div class="card-body" style="min-height: 200px; max-height:200px;overflow-y: hidden;">
@@ -14,14 +14,12 @@
             <a asp-action="Alterar" class="btn btn-sm btn-outline-info" asp-route-id="@Model.Id">Alterar</a>
             <a asp-action="Excluir" class="btn btn-sm btn-outline-danger" asp-route-id="@Model.Id">Excluir</a>
         </div>
-        <div class="card-footer text-muted" style="padding : 0px; height:50px;">
-            <table class="table table-bordered">
-                <tr>
-                    <td>@Model.Turno.Descricao()</td>
-                    <td>@Model.QuantidadeAula <small>Aulas</small></td>
-                    <td>@Model.DataInicio.ToString("dd/MM/yyyy")</td>
-                </tr>
-            </table>
+        <div class="card-footer text-muted" style="min-height:50px;">
+            <div class="row">
+                <div class="col-4 col-sm-4 col-md-4 border-right">@Model.Turno.Descricao()</div>
+                <div class="col-4 col-sm-4 col-md-4 border-right">@Model.QuantidadeAula <small>Aulas</small></div>
+                <div class="col-4 col-sm-4 col-md-4" style="padding-right:0px;"><small>@Model.DataInicio.ToString("dd/MM/yyyy")</small></div>
+            </div>
         </div>
     </div>
 </div>

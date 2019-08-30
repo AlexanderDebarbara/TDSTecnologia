@@ -19,5 +19,10 @@ namespace TDSTecnologia.Site.Core.Utilitarios
             }
             return null;
         }
+
+        public static string ConverterByteArrayParaStringBase64(byte[] imagem)
+        {
+            return imagem != null ? "data:image/png;base64," + Convert.ToBase64String(imagem, 0, imagem.Length) : null;
+        }
     }
 }
