@@ -32,9 +32,8 @@ namespace TDSTecnologia.Site.Infrastructure.Repository
             return await _context.CursoDao.FirstOrDefaultAsync(m => m.Id == id);
         }
 
-        public async Task Salvar(Curso curso, IFormFile arquivo)
-        {
-            curso.Banner = await UtilImagem.ConverterParaByte(arquivo);
+        public async Task Salvar(Curso curso)
+        {            
             _context.Add(curso);
             await _context.SaveChangesAsync();
         }

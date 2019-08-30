@@ -10,21 +10,22 @@ using TDSTecnologia.Site.Core.Entities;
 using TDSTecnologia.Site.Core.Utilitarios;
 using TDSTecnologia.Site.Infrastructure.Data;
 using TDSTecnologia.Site.Infrastructure.Repository;
+using TDSTecnologia.Site.Infrastructure.Services;
 
 namespace TDSTecnologia.Site.Web.Controllers
 {
     public class HomeController : Controller
     {
-        private readonly CursoRespository _cursoRespository;
+        private readonly CursoService _cursoService;
 
-        public HomeController(AppContexto context, CursoRespository cursoRespository)
+        public HomeController(AppContexto context, CursoService cursoService)
         {
             _context = context;
-            _cursoRespository = cursoRespository;
+            _cursoService = cursoService;
         }
         public async Task<IActionResult> Index()
         {
-            List<Curso> cursos = await _cursoRespository.ListarTodos();
+            List<Curso> cursos = await _cursoService.ListarTodos();
 
             return View(cursos);
         }
@@ -43,7 +44,8 @@ namespace TDSTecnologia.Site.Web.Controllers
         {
             if (ModelState.IsValid)
             {
-                await _cursoRespository.Salvar(curso, arquivo);
+                curso.Banner = await UtilImagem.ConverterParaByte(arquivo);
+                await _cursoService.Salvar(curso);
                 return RedirectToAction(nameof(Index));
             }
             return View(curso);
@@ -56,7 +58,7 @@ namespace TDSTecnologia.Site.Web.Controllers
                 return NotFound();
             }
 
-            var curso = await _cursoRespository.PegarPrimeiroOuDefault(id);
+            var curso = await _cursoService.PegarPrimeiroOuDefault(id);
             if (curso == null)
             {
                 return NotFound();
@@ -72,7 +74,7 @@ namespace TDSTecnologia.Site.Web.Controllers
                 return NotFound();
             }
 
-            var curso = await _cursoRespository.Pegar(id);
+            var curso = await _cursoService.Pegar(id);
 
             if (curso == null)
             {
@@ -91,8 +93,8 @@ namespace TDSTecnologia.Site.Web.Controllers
             }
 
             if (ModelState.IsValid)
-            {
-                await _cursoRespository.Alterar(curso);
+            {                
+                await _cursoService.Alterar(curso);
                 return RedirectToAction(nameof(Index));
             }
             return View(curso);
@@ -105,7 +107,7 @@ namespace TDSTecnologia.Site.Web.Controllers
                 return NotFound();
             }
 
-            var curso = await _cursoRespository.PegarPrimeiroOuDefault(id);
+            var curso = await _cursoService.PegarPrimeiroOuDefault(id);
             if (curso == null)
             {
                 return NotFound();
@@ -118,7 +120,7 @@ namespace TDSTecnologia.Site.Web.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> ConfirmarExclusao(int id)
         {
-            await _cursoRespository.Excluir(id);
+            await _cursoService.Excluir(id);
             return RedirectToAction(nameof(Index));
         }
     }
