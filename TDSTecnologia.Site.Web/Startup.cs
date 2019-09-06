@@ -5,12 +5,15 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using TDSTecnologia.Site.Core.Entities;
 using TDSTecnologia.Site.Infrastructure.Data;
 using TDSTecnologia.Site.Infrastructure.Repository;
 using TDSTecnologia.Site.Infrastructure.Services;
+using Microsoft.AspNetCore.Identity.UI;
 
 namespace TDSTecnologia.Site.Web
 {
@@ -31,6 +34,12 @@ namespace TDSTecnologia.Site.Web
                     .AddDbContext<AppContexto>(options => options.UseNpgsql(Configuration.GetConnectionString("AppConnection")));
             services.AddScoped<CursoRespository, CursoRespository>();
             services.AddScoped<CursoService, CursoService>();
+            services.AddScoped<PermissaoService, PermissaoService>();
+            services.AddScoped<UsuarioService, UsuarioService>();
+
+            services.AddIdentity<Usuario, Permissao>()
+                .AddDefaultUI(UIFramework.Bootstrap4)
+                .AddEntityFrameworkStores<AppContexto>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -44,6 +53,7 @@ namespace TDSTecnologia.Site.Web
             app.UseStatusCodePages();
             app.UseMvcWithDefaultRoute();
             app.UseStaticFiles();
+            app.UseAuthentication();
         }
     }
 }

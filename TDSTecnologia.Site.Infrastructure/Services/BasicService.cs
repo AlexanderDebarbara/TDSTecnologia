@@ -13,5 +13,10 @@ namespace TDSTecnologia.Site.Infrastructure.Services
         {
             _context = context;
         }
+
+        protected void SaveChangesApp()
+        {
+            _context.SaveChanges();
+        }
     }
 }

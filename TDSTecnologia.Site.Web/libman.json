@@ -16,6 +16,13 @@
       "files": [
         "jquery.min.js"
       ]
+    },
+    {
+      "library": "popper.js@1.15.0",
+      "destination": "wwwroot/popper.js/",
+      "files": [
+        "esm/popper.min.js"
+      ]
     }
   ]
 }
