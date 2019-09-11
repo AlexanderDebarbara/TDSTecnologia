@@ -14,6 +14,7 @@ using TDSTecnologia.Site.Infrastructure.Data;
 using TDSTecnologia.Site.Infrastructure.Repository;
 using TDSTecnologia.Site.Infrastructure.Services;
 using Microsoft.AspNetCore.Identity.UI;
+using TDSTecnologia.Site.Infrastructure.Integrations.Email;
 
 namespace TDSTecnologia.Site.Web
 {
@@ -31,7 +32,7 @@ namespace TDSTecnologia.Site.Web
         {
             services.AddMvc();
             services.AddEntityFrameworkNpgsql()
-                    .AddDbContext<AppContexto>(options => options.UseNpgsql(Configuration.GetConnectionString("AppConnection")));
+                    .AddDbContext<AppContexto>(options => options.UseNpgsql(Databases.Instance.Conexao));
             services.AddScoped<CursoRespository, CursoRespository>();
             services.AddScoped<CursoService, CursoService>();
             services.AddScoped<PermissaoService, PermissaoService>();
@@ -40,6 +41,9 @@ namespace TDSTecnologia.Site.Web
             services.AddIdentity<Usuario, Permissao>()
                 .AddDefaultUI(UIFramework.Bootstrap4)
                 .AddEntityFrameworkStores<AppContexto>();
+
+            services.Configure<ConfiguracoesEmail>(Configuration.GetSection("ConfiguracoesEmail"));
+            services.AddScoped<IEmail, Email>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

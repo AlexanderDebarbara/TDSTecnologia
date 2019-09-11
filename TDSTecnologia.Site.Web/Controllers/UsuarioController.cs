@@ -81,7 +81,6 @@ namespace TDSTecnologia.Site.Web.Controllers
 
                 if (usuario != null)
                 {
-
                     if (SecurityUtil.CompararSenhas(usuario, model.Senha))
                     {
                         await _usuarioService.Login(usuario, false);

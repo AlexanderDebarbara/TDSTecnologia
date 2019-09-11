@@ -1,0 +1,41 @@
+﻿@model TDSTecnologia.Site.Web.ViewModels.ContatoViewModel
+
+@{
+    ViewData["Title"] = "Contato";
+}
+
+<div>
+    <h1 class="text-center">Cadastro de Usuário</h1>
+</div>
+<hr />
+<div class="row">
+    <div class="col-12 col-lg-8 offset-lg-2">
+        <form asp-action="Contatar">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="Email" class="control-label">E-mail</label>
+                <input asp-for="Email" class="form-control" />
+                <span asp-validation-for="Email" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Assunto" class="control-label">Assunto</label>
+                <input asp-for="Assunto" class="form-control" type="text" />
+                <span asp-validation-for="Assunto" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Mensagem" class="control-label">Mensagem</label>
+                <input asp-for="Mensagem" class="form-control form-control-lg" type="text" />
+                <span asp-validation-for="Mensagem" class="text-danger"></span>
+            </div>
+
+            <section class="row justify-content-center mb-5">
+                <div class="form-group">
+                    <input type="submit" value="Enviar Mensagem" class="btn btn-primary" />
+                </div>
+            </section>
+        </form>
+        <div>
+            <a asp-action="Index">Voltar</a>
+        </div>
+    </div>
+</div>

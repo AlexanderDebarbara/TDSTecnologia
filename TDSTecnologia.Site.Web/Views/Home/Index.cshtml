@@ -1,5 +1,5 @@
 ﻿@{ Layout = "_Layout"; }
-@model IEnumerable<TDSTecnologia.Site.Core.Entities.Curso>
+@model TDSTecnologia.Site.Web.ViewModels.CursoViewModel
 
 @{
     ViewData["Title"] = "Index";
@@ -10,8 +10,8 @@
     <p>Veja aqui nossos proximos cursos agendados, se preferir acesso nosso <b>Calendário completo</b>.</p>
 </div>
 <div class="row">
-    @foreach (var item in Model)
+    @if (Model.CursosComPaginacao.TotalItemCount > 0)
     {
-        @await Html.PartialAsync("_CardCursoPartial.cshtml", item)
+        @await Html.PartialAsync("_CardPaginacaoCursoPartial.cshtml", Model.CursosComPaginacao);
     }
 </div>
