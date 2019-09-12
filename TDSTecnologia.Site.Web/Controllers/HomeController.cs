@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Logging;
 using TDSTecnologia.Site.Core.Entities;
 using TDSTecnologia.Site.Core.Utilitarios;
 using TDSTecnologia.Site.Infrastructure.Data;
@@ -19,14 +20,17 @@ namespace TDSTecnologia.Site.Web.Controllers
     public class HomeController : Controller
     {
         private readonly CursoService _cursoService;
+        private readonly ILogger<HomeController> _logger;
 
-        public HomeController(AppContexto context, CursoService cursoService)
+        public HomeController(AppContexto context, CursoService cursoService, ILogger<HomeController> logger)
         {
             _context = context;
             _cursoService = cursoService;
+            _logger = logger;
         }
         public async Task<IActionResult> Index(int? pagina)
         {
+            _logger.LogInformation("Listagem de cursos...");
             IPagedList<Curso> cursos = _cursoService.ListarComPaginacao(pagina);
             var viewModel = new CursoViewModel
             {
