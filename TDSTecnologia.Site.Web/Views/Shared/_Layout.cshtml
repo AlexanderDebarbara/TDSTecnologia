@@ -34,15 +34,7 @@
     </header>
     <div class="container">
         <main role="main" class="pb-3">
-            <div class="jumbotron" style="background-image: url('/imagens/banner.jpg');">
-                <h1 class="display-4">O que você gostaria de aprender?</h1>
-                <p class="lead text-primary">Vendemos o conhecimento, independente da tecnologia.</p>
-                <hr class="my-4">
-                <p class="text-info">Veja aqui nossos proximos cursos agendados, se preferir acesso nosso Calendário completo.</p>
-                <p class="lead">
-                    <a class="btn btn-primary btn-sm" href="#" role="button">Veja mais</a>
-                </p>
-            </div>
+            @await Html.PartialAsync("_CarroselSliderPartial.cshtml")
             @RenderBody()
         </main>
     </div>

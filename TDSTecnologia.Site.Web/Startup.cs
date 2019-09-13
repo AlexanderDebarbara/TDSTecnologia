@@ -134,17 +134,13 @@ namespace TDSTecnologia.Site.Web
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void ConfigureProduction(IApplicationBuilder app, IHostingEnvironment env)
         {
-            if (env.IsDevelopment())
-            {
-                app.UseDeveloperExceptionPage();
-            }
 
-            app.UseStatusCodePages();
+            _logger.LogInformation("AMBIENTE: " + env.EnvironmentName);
+            app.UseStatusCodePagesWithReExecute("/Erros/{0}");
             app.UseMvcWithDefaultRoute();
             app.UseStaticFiles();
             app.UseAuthentication();
 
-            _logger.LogInformation("AMBIENTE: " + env.EnvironmentName);
         }
     }
 }

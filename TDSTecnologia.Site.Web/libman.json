@@ -23,6 +23,14 @@
       "files": [
         "esm/popper.min.js"
       ]
+    },
+    {
+      "library": "Swiper@4.5.0",
+      "destination": "wwwroot/lib/Swiper/",
+      "files": [
+        "js/swiper.min.js",
+        "css/swiper.min.css"
+      ]
     }
   ]
 }

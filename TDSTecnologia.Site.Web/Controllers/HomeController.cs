@@ -17,7 +17,7 @@ using X.PagedList;
 
 namespace TDSTecnologia.Site.Web.Controllers
 {
-    public class HomeController : Controller
+    public class HomeController : AppAbstractController
     {
         private readonly CursoService _cursoService;
         private readonly ILogger<HomeController> _logger;
@@ -52,13 +52,24 @@ namespace TDSTecnologia.Site.Web.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Novo([Bind("Id,Nome,Descricao,QuantidadeAula,DataInicio,Turno,Modalidade, Vagas, Nivel")] Curso curso, IFormFile arquivo)
         {
-            if (ModelState.IsValid)
+            try
             {
-                curso.Banner = await UtilImagem.ConverterParaByte(arquivo);
-                await _cursoService.Salvar(curso);
-                return RedirectToAction(nameof(Index));
+                if (ModelState.IsValid)
+                {
+                    curso.Banner = await UtilImagem.ConverterParaByte(arquivo);
+                    await _cursoService.Salvar(curso);
+                    AddMensagemSucesso("Curso Cadastrado");
+                    return RedirectToAction(nameof(Novo));
+                }
+                return View(curso);
+            }
+            catch(Exception e)
+            {
+                _logger.LogError(e.Message);
+                AddMensagemErro("Falha no cadastro");
             }
             return View(curso);
+            
         }
 
         public async Task<IActionResult> Detalhes(int? id)

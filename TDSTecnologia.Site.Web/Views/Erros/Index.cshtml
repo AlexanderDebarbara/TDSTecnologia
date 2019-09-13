@@ -1,0 +1,23 @@
+﻿@model int
+@{
+    var codigoErrro = Model;
+    var mensagem = "";
+    switch (codigoErrro)
+    {
+        case 404:
+            mensagem = "Página não encontrada";
+            break;
+        case 500:
+            mensagem = "Não foi possível processar a requisição";
+            break;
+        default:
+            mensagem = "Inconsistência detectada";
+            break;
+    }
+}
+<div class="jumbotron">
+    <h1 class="display-4">Detalhes da inconsistência</h1>
+    <p class="lead"></p>
+    <hr class="my-4">
+    <p>@mensagem</p>
+</div>
